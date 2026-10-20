@@ -1,0 +1,17 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<h1>Добромобиль</h1>
+<p>Помогаем приютам для животных вместе: рейсы, корма, медикаменты, тёплые вещи.</p>
+
+{% for d in directions %}
+    <div class="card">
+        <h2>{{ d.name }}</h2>
+        <p>{{ d.description|default:"Описание скоро появится" }}</p>
+        <a href="{% url 'direction_detail' d.slug %}" class="btn">Подробнее</a>
+    </div>
+{% empty %}
+    <div class="card">
+        <p>Направлений пока нет. Добавьте в <a href="/admin/">админке</a>.</p>
+    </div>
+{% endfor %}
+{% endblock %}

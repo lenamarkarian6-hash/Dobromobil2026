@@ -1,0 +1,24 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<h1>{{ trip.title }}</h1>
+<div class="card">
+    <p><strong>Дата:</strong> {{ trip.date|date:"d.m.Y H:i" }}</p>
+    <p><strong>Приют:</strong> {{ trip.shelter.name }} ({{ trip.shelter.address }})</p>
+    <p><strong>Статус:</strong> {{ trip.get_status_display }}</p>
+    <p><strong>Мест:</strong> {{ trip.seats_taken }} / {{ trip.seats_total }} (свободно: {{ trip.seats_left }})</p>
+    <p>{{ trip.description }}</p>
+</div>
+
+{% if user.is_authenticated %}
+    {% if trip.seats_left > 0 %}
+        <form method="post" action="{% url 'enroll' trip.id %}">
+            {% csrf_token %}
+            <button type="submit" class="btn">Записаться на рейс</button>
+        </form>
+    {% else %}
+        <button class="btn" disabled>Мест нет</button>
+    {% endif %}
+{% else %}
+    <p><a href="/login/">Войдите</a>, чтобы записаться.</p>
+{% endif %}
+{% endblock %}

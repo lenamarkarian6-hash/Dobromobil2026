@@ -1,0 +1,14 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<h1>Отчётность по направлениям</h1>
+{% for item in data %}
+    <div class="card">
+        <h2>{{ item.direction.name }}</h2>
+        <p>Приютов: {{ item.shelters }}</p>
+        <p>Рейсов всего: {{ item.trips }} (выполнено: {{ item.done_trips }})</p>
+        <p>Волонтёров участвовало: {{ item.volunteers }}</p>
+    </div>
+{% empty %}
+    <p>Пока нет данных.</p>
+{% endfor %}
+{% endblock %}

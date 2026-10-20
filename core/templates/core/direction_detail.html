@@ -1,0 +1,28 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<h1>{{ direction.name }}</h1>
+<p>{{ direction.description }}</p>
+
+<h2>Приюты</h2>
+{% for s in shelters %}
+    <div class="card">
+        <strong>{{ s.name }}</strong><br>
+        {{ s.address }}<br>
+        <em>Потребности:</em> {{ s.needs|default:"—" }}
+    </div>
+{% empty %}
+    <p>Приютов пока нет.</p>
+{% endfor %}
+
+<h2>Ближайшие рейсы</h2>
+{% for t in trips %}
+    <div class="card">
+        <strong>{{ t.title }}</strong> — {{ t.date|date:"d.m.Y H:i" }}<br>
+        Приют: {{ t.shelter.name }}<br>
+        Мест: {{ t.seats_taken }} / {{ t.seats_total }}<br>
+        <a href="{% url 'trip_detail' t.id %}" class="btn" style="margin-top:0.5rem;">Подробнее</a>
+    </div>
+{% empty %}
+    <p>Рейсов пока нет.</p>
+{% endfor %}
+{% endblock %}
