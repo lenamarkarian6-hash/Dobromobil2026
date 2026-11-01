@@ -3,14 +3,17 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.contrib import messages
-from .models import Direction, Shelter, Trip, Enrollment
-
+from .models import Direction, Shelter, Trip, Enrollment, AboutPage
 
 def home(request):
     directions = Direction.objects.filter(is_active=True)
     return render(request, 'core/home.html', {'directions': directions})
 
-
+def about(request):
+    about_page = AboutPage.objects.first()
+    return render(request, 'core/about.html', {
+        'about_page': about_page,
+    })
 def direction_detail(request, slug):
     direction = get_object_or_404(Direction, slug=slug, is_active=True)
     shelters = direction.shelters.all()
