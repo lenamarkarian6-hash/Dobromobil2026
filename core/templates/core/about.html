@@ -1,0 +1,47 @@
+
+{% extends 'core/base.html' %}
+
+{% block content %}
+
+<section class="card">
+    {% if about_page %}
+        <h1>{{ about_page.title }}</h1>
+        <p>{{ about_page.text|linebreaks }}</p>
+
+        {% if about_page.photo %}
+            <img src="{{ about_page.photo.url }}"
+                 alt="О проекте Добромобиль"
+                 style="max-width:100%; border-radius:12px;">
+        {% endif %}
+    {% else %}
+        <h1>О проекте «Добромобиль»</h1>
+    {% endif %}
+</section>
+
+<section>
+    <h2>Наши принципы</h2>
+
+    <div class="card">
+        <h3>🎯 Адресность</h3>
+        <p>Помогаем конкретному приюту в конкретный день.</p>
+    </div>
+
+    <div class="card">
+        <h3>🔍 Прозрачность</h3>
+        <p>Каждый рейс и каждый сбор сопровождается отчётом.</p>
+    </div>
+
+    <div class="card">
+        <h3>🤝 Удобство</h3>
+        <p>Личный кабинет, карта рейсов, запись онлайн —
+        всё в одном месте.</p>
+    </div>
+
+    <div class="card">
+        <h3>🌱 Развитие</h3>
+        <p>Поддерживаем несколько направлений
+        и готовы к новым.</p>
+    </div>
+</section>
+
+{% endblock %}
